@@ -16,3 +16,6 @@ Observações:
 Uma linha por dia de cotação do Brent, de 03/01/2006 em diante. Alinhamento **sem vazamento do futuro**:
 - `dolar_d1`: último valor do dólar **estritamente anterior** ao dia (D-1). `dolar_data_ref` mostra a data de origem.
 - `estoque_mil_barris`: último estoque **já divulgado** no dia. A semana de referência termina na sexta; o dado só passa a valer 6 dias depois (quinta seguinte, conservador contra atrasos de feriado). `estoque_semana_ref` mostra a semana.
+
+## Série de conferência (não é fonte do modelo)
+`brent_eia_conferencia.parquet`: Brent diário original da EIA (série `RBRTE`, `https://www.eia.gov/dnav/pet/hist_xls/RBRTEd.xls`, domínio público). Serve **apenas** para verificar a série do Ipeadata, que apresenta datas desalinhadas entre 2002 e 2018 (registros em sábados e domingos e valores que não batem com a EIA na mesma data). A fonte do preço do Brent no projeto continua sendo o Ipeadata, conforme o enunciado.
