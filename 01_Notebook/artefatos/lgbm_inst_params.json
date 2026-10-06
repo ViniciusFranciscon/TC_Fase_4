@@ -1,0 +1,19 @@
+{
+ "params": {
+  "objective": "regression",
+  "n_estimators": 125,
+  "learning_rate": 0.0184566925585103,
+  "num_leaves": 8,
+  "max_depth": 4,
+  "min_child_samples": 33,
+  "subsample": 0.5007885750675175,
+  "subsample_freq": 1,
+  "colsample_bytree": 0.6673102832642666,
+  "reg_alpha": 0.002666272923379142,
+  "reg_lambda": 0.11713677350711815
+ },
+ "conjunto": "n\u00edvel (25)",
+ "melhor_mae_log": 0.2496271566730287,
+ "trials": 40,
+ "minutos": 0.3
+}
