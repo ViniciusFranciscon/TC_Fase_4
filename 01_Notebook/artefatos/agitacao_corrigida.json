@@ -1,0 +1,16 @@
+{
+ "params": {
+  "objective": "regression",
+  "n_estimators": 289,
+  "learning_rate": 0.00601013546888693,
+  "num_leaves": 11,
+  "max_depth": 4,
+  "min_child_samples": 250,
+  "subsample": 0.8132719851383794,
+  "subsample_freq": 1,
+  "colsample_bytree": 0.8354631117334042,
+  "reg_alpha": 0.2757002108128197,
+  "reg_lambda": 49.925722333763474
+ },
+ "erro_validacao": 0.25135690033142194
+}

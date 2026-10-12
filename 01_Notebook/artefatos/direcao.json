@@ -1,0 +1,16 @@
+{
+ "params": {
+  "objective": "binary",
+  "n_estimators": 353,
+  "learning_rate": 0.08668869263949182,
+  "num_leaves": 12,
+  "max_depth": 5,
+  "min_child_samples": 146,
+  "subsample": 0.7942235741545869,
+  "subsample_freq": 1,
+  "colsample_bytree": 0.7028285656571212,
+  "reg_alpha": 0.0011733663087581622,
+  "reg_lambda": 0.7155335759173764
+ },
+ "auc_validacao": 0.5383764101076638
+}
