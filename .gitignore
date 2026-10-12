@@ -12,3 +12,10 @@ venv/
 .DS_Store
 Thumbs.db
 ~$*
+
+# App: o HTML de pré-visualização é gerado a partir do template
+02_App/prototipo_app.html
+02_App/dados/app_dados.json
+
+# Kit visual de referência (imagens de apoio; os recortes usados estão em 02_App/assets)
+FIAP_Brent_Kit_Visual/
