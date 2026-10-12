@@ -77,7 +77,7 @@ streamlit run 02_App/app.py
 jupyter lab 01_Notebook/TC_Petroleo.ipynb
 ```
 
-Execute todas as células (`Run All`). Não precisa de internet nem de credenciais: os dados já estão em `00_Base_TC`. Os parâmetros do Optuna ficam salvos em `01_Notebook/artefatos/`, então a execução reaproveita a otimização (apague os `.json` dessa pasta para reotimizar; leva bem mais tempo). A execução completa leva cerca de 10 a 15 minutos, quase toda no retreino por janelas.
+Execute todas as células (`Run All`). Não precisa de internet nem de credenciais: os dados já estão em `00_Base_TC`. Os parâmetros do Optuna ficam salvos em `01_Notebook/artefatos/`, então a execução reaproveita a otimização (apague os `.json` dessa pasta para reotimizar; leva bem mais tempo). Com esse cache, a execução completa leva cerca de 1 a 2 minutos (testada em um clone limpo do repositório: 56 células, 0 erros, números idênticos aos publicados). Reotimizar o Optuna do zero leva bem mais.
 
 **Atualizar o app depois de reexecutar o notebook:**
 
