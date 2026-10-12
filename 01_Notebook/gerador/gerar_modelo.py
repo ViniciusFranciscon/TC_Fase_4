@@ -340,6 +340,7 @@ json.dump({"data_hoje": f"{DATA_HOJE:%Y-%m-%d}", "preco_hoje": P0, "agitacao_6s"
            "distribuicao_agitacao": {str(q): float(np.quantile(ref, q)) for q in (0.05, 0.25, 0.5, 0.75, 0.95)},
            "historico": {"datas": [f"{d:%Y-%m-%d}" for d in pd.to_datetime(DATAS[-120:])], "preco": [float(x) for x in PRECO[-120:]]},
            "previsao": [{"h": int(r.h), "data": f"{r.data:%Y-%m-%d}", "inf80": float(r.inf_80), "sup80": float(r.sup_80), "inf95": float(r.inf_95), "sup95": float(r.sup_95)} for r in PREV.itertuples()],
+           "replay": {"fatores_val": {"80%": [float(Q80[0]), float(Q80[1])], "95%": [float(Q95[0]), float(Q95[1])]}, "datas": [f"{x:%Y-%m-%d}" for x in pd.to_datetime(AG["teste"]["data"])], "sigma": [round(float(x), 4) for x in np.exp(AG["teste"]["modelo"])]},
            "efeitos_hoje": {NOMES[FEAT[j]]: float(efeito[j]) for j in np.argsort(np.abs(efeito))[::-1][:5]}}, open(APP / "app_dados.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 print("dados do app gravados em", APP)
 ''')
