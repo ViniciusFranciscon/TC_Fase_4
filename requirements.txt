@@ -8,13 +8,7 @@ scikit-learn>=1.4
 lightgbm>=4.0
 optuna>=3.6
 matplotlib>=3.8
-nbformat>=5.9
-nbconvert>=7.0
-ipykernel>=6.0
 jupyterlab>=4.0
 
 # App (02_App/app.py)
 streamlit>=1.35
-
-# Só para regenerar as imagens do app a partir do kit visual (opcional)
-pillow>=10.0

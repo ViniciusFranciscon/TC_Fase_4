@@ -81,29 +81,29 @@ jupyter lab 01_Notebook/TC_Petroleo.ipynb
 
 Execute todas as células (`Run All`). Não precisa de internet nem de credenciais: os dados já estão em `00_Base_TC`. Os parâmetros do Optuna ficam salvos em `01_Notebook/artefatos/`, então a execução reaproveita a otimização (apague os `.json` dessa pasta para reotimizar; leva bem mais tempo). Com esse cache, a execução completa leva cerca de 1 a 2 minutos (testada em um clone limpo do repositório: 56 células, 0 erros, números idênticos aos publicados). Reotimizar o Optuna do zero leva bem mais.
 
-**Atualizar o app depois de reexecutar o notebook:**
+**Atualizar o app depois de reexecutar o notebook** (opcional):
 
 ```bash
-python 01_Notebook/gerador/gerar_app_html.py
+python 02_App/atualizar_dados.py
 ```
 
-O notebook grava `02_App/dados/app_dados.json`; o script junta esses números com as séries e as tabelas do notebook e atualiza `02_App/dados/app_completo.json`, que é o arquivo lido pelo app.
+O notebook grava `02_App/dados_notebook.json`; o script junta esses números com as séries e as tabelas do notebook e atualiza `02_App/dados.json`, que é o arquivo lido pelo app.
 
 ## Estrutura do repositório
 
 ```
-00_Base_TC/            dados públicos (parquet) e FONTES.md com licenças
+README.md
+requirements.txt
+00_Base_TC/          dados públicos (parquet) e FONTES.md com as licenças
 01_Notebook/
-  TC_Petroleo.ipynb    notebook completo: EDA, modelagem, validação, SHAP e previsão de hoje
-  artefatos/           parâmetros do Optuna (cache)
-  gerador/             scripts que geram as células do notebook e os dados do app
+  TC_Petroleo.ipynb  notebook completo: EDA, modelagem, validação, SHAP e previsão de hoje
+  artefatos/         parâmetros do Optuna (cache)
 02_App/
-  app.py               entrada do Streamlit
-  montar.py            junta template, dados e imagens
-  template/app.html    interface (páginas, gráficos e simulador)
-  dados/               números do app (app_completo.json)
-  assets/              fotografia e logo
-requirements.txt       dependências (notebook e app)
+  app.py             entrada do Streamlit
+  interface.html     páginas, gráficos e simulador
+  dados.json         números do app
+  imagens/           fotografia e logo
+  atualizar_dados.py atualiza dados.json a partir do notebook
 ```
 
 ## Publicar o app no Streamlit Community Cloud
