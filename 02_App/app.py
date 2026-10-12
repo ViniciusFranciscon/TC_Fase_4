@@ -1,10 +1,25 @@
 # -*- coding: utf-8 -*-
 """FIAP | Radar de Volatilidade do Brent: app do Tech Challenge (Fase 4).
 
-Executar: streamlit run 02_App/app.py
+Executar: streamlit run 02_App/app.py   (rodar este arquivo com `python` também funciona: ele chama o Streamlit)
 """
+import subprocess
+import sys
+
+
+def _no_streamlit():
+    try:
+        from streamlit.runtime.scriptrunner import get_script_run_ctx
+        return get_script_run_ctx() is not None
+    except Exception:
+        return False
+
+
+if __name__ == "__main__" and not _no_streamlit():
+    # executado como script comum (por exemplo, pelo botão "Run Python File" do VS Code): abre o app no Streamlit
+    raise SystemExit(subprocess.call([sys.executable, "-m", "streamlit", "run", __file__, *sys.argv[1:]]))
+
 import streamlit as st
-import streamlit.components.v1 as components
 
 from montar import montar_html
 
@@ -31,4 +46,8 @@ def pagina():
     return montar_html()
 
 
-components.html(pagina(), height=900, scrolling=True)
+if hasattr(st, "iframe"):                       # Streamlit recente: st.components.v1.html foi descontinuado
+    st.iframe(pagina(), height=900)
+else:                                           # versões antigas
+    import streamlit.components.v1 as components
+    components.html(pagina(), height=900, scrolling=True)

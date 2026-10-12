@@ -71,6 +71,8 @@ pip install -r requirements.txt
 streamlit run 02_App/app.py
 ```
 
+Também funciona rodar `02_App/app.py` com o botão *Run Python File* do VS Code: o arquivo chama o Streamlit sozinho.
+
 **Executar o notebook:**
 
 ```bash
