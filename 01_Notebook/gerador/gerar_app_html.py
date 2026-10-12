@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Gera o protótipo do app em um único HTML.
-Números e séries vêm do notebook executado e dos parquets; imagens vêm do kit visual (só fotografia e logo)."""
-import json, re, base64, io
+"""Atualiza os dados do app (02_App/dados/app_completo.json) a partir do notebook executado e dos parquets.
+Uso: rodar o notebook (que grava 02_App/dados/app_dados.json) e depois  python 01_Notebook/gerador/gerar_app_html.py"""
+import json, re, sys
 from pathlib import Path
 import numpy as np, pandas as pd
-from PIL import Image
 
 AQUI = Path(__file__).resolve().parent
 RAIZ = AQUI.parent.parent
@@ -95,30 +94,23 @@ if "replay" in D:
     assert abs(R["cobertura80"] - D["metricas"]["cobertura"]["geral_modelo"]) < 1.5, ("replay não reproduz a cobertura do notebook", R["cobertura80"])
     print("replay: cobertura de 80% em 15 dias =", R["cobertura80"], "| dias:", len(datas))
 
-# ───────── imagens do kit (só fotografia e logo, sem números) ─────────
-def jpg(im, q=82):
-    buf = io.BytesIO(); im.convert("RGB").save(buf, "JPEG", quality=q, optimize=True)
-    return "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode()
-
-
-home = Image.open(KIT / "paginas" / "00_home_page.png")
-POSTER = jpg(home.crop((0, 0, 1536, 700)))
-HERO = jpg(home.crop((0, 400, 1536, 700)), 80)             # horizonte, sol, navio e a base da plataforma, sem texto
-sim = Image.open(KIT / "paginas" / "01_simulador.png").convert("RGB").crop((30, 32, 180, 78))
-g = np.asarray(sim, dtype=float)[..., 0]
-alfa = np.clip((g - 35) / (242 - 35), 0, 1)
-logo = np.zeros(g.shape + (4,), dtype=np.uint8); logo[..., 0], logo[..., 1], logo[..., 2], logo[..., 3] = 242, 11, 88, (alfa * 255).astype(np.uint8)
-lg = Image.fromarray(logo, "RGBA").resize((sim.width * 4, sim.height * 4), Image.LANCZOS)
-buf = io.BytesIO(); lg.save(buf, "PNG", optimize=True); LOGO = "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()
-
 # ───────── grava os arquivos do app (o Streamlit monta o HTML em tempo de execução) ─────────
 APP = RAIZ / "02_App"
 for sub in ("assets", "template", "dados"): (APP / sub).mkdir(exist_ok=True)
 def jpg_arq(im, nome, q):
     im.convert("RGB").save(APP / "assets" / nome, "JPEG", quality=q, optimize=True)
-jpg_arq(home.crop((0, 0, 1536, 700)), "poster.jpg", 82); jpg_arq(home.crop((0, 400, 1536, 700)), "hero.jpg", 80); lg.save(APP / "assets" / "logo.png", "PNG", optimize=True)
+# imagens: só são refeitas se o kit visual estiver na pasta; os recortes finais já ficam versionados em 02_App/assets
+if (KIT / "paginas" / "00_home_page.png").exists():
+    from PIL import Image
+    home = Image.open(KIT / "paginas" / "00_home_page.png")
+    jpg_arq(home.crop((0, 0, 1536, 700)), "poster.jpg", 82)                 # fotografia, sem os botões
+    jpg_arq(home.crop((0, 400, 1536, 700)), "hero.jpg", 80)                 # horizonte, sol, navio e a base da plataforma
+    sim = Image.open(KIT / "paginas" / "01_simulador.png").convert("RGB").crop((30, 32, 180, 78))
+    g = np.asarray(sim, dtype=float)[..., 0]
+    logo = np.zeros(g.shape + (4,), dtype=np.uint8); logo[..., 0], logo[..., 1], logo[..., 2], logo[..., 3] = 242, 11, 88, (np.clip((g - 35) / (242 - 35), 0, 1) * 255).astype(np.uint8)
+    Image.fromarray(logo, "RGBA").resize((sim.width * 4, sim.height * 4), Image.LANCZOS).save(APP / "assets" / "logo.png", "PNG", optimize=True)
 (APP / "template" / "app.html").write_text((AQUI / "app_modelo.html").read_text(encoding="utf-8"), encoding="utf-8")
 (APP / "dados" / "app_completo.json").write_text(json.dumps(D, ensure_ascii=False), encoding="utf-8")
-import sys; sys.path.insert(0, str(APP)); from montar import montar_html
+sys.path.insert(0, str(APP)); from montar import montar_html
 saida = APP / "prototipo_app.html"; saida.write_text(montar_html(), encoding="utf-8")
 print("ok", saida, f"{saida.stat().st_size/1e6:.2f} MB")
