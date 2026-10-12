@@ -6,7 +6,7 @@ Modelo preditivo para o preço do petróleo Brent (US$ por barril), publicado em
 
 | Entregável | Onde |
 |---|---|
-| **App (Streamlit)** | _link do app: preencher após o deploy_ · código em [`02_App/`](02_App) |
+| **App (Streamlit)** | **https://modelo-brent.streamlit.app/** · código em [`02_App/`](02_App) |
 | **Notebook com todo o pipeline** | [`01_Notebook/TC_Petroleo.ipynb`](01_Notebook/TC_Petroleo.ipynb) (já executado: o GitHub mostra gráficos e tabelas) |
 | Fontes de dados e licenças | [`00_Base_TC/FONTES.md`](00_Base_TC/FONTES.md) |
 
@@ -110,7 +110,7 @@ requirements.txt
 
 1. Acesse [share.streamlit.io](https://share.streamlit.io) com a conta do GitHub.
 2. **New app**, repositório `ViniciusFranciscon/TC_Fase_4`, branch `main`, arquivo principal `02_App/app.py`.
-3. O Streamlit lê as dependências de `02_App/requirements.txt` (só `streamlit`). Depois do deploy, coloque o link no topo deste README.
+3. O Streamlit lê as dependências de `02_App/requirements.txt` (só `streamlit`).
 
 ## Avisos
 
